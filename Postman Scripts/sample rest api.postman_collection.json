@@ -1,0 +1,186 @@
+{
+	"info": {
+		"_postman_id": "02ced711-a890-46a2-af1d-f883e7099da3",
+		"name": "sample rest api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28020898"
+	},
+	"item": [
+		{
+			"name": "enroll student",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function randomIc() {\r",
+							"    var year = _.random(1970, 2010);\r",
+							"    var month = _.random(1, 12) + \"\";\r",
+							"    var day = _.random(1, 28) + \"\";\r",
+							"    var area = _.random(1, 14) + \"\";\r",
+							"\r",
+							"    pm.variables.set('randomYear', year);\r",
+							"\r",
+							"    year = (year + \"\").slice(-2);\r",
+							"    month = month.length == 1 ? \"0\" + month : month;\r",
+							"    day = day.length == 1 ? \"0\" + day : day;\r",
+							"    area = area.length == 1 ? \"0\" + area : area;\r",
+							"\r",
+							"    return \"\" + year + month + day + \"-\" + area + \"-\" + _.random(1000, 9999);\r",
+							"}\r",
+							"\r",
+							"function randomAge() {\r",
+							"    return 2023 - pm.variables.get('randomYear');\r",
+							"}\r",
+							"\r",
+							"pm.variables.set('randomIc', randomIc());\r",
+							"pm.variables.set('randomAge', randomAge());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ic\" : \"{{randomIc}}\",\r\n    \"name\" : \"{{$randomFirstName}}\",\r\n    \"age\" : {{randomAge}},\r\n    \"address\" : \"{{$randomStreetAddress}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/samplerestapi/student/enroll",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"samplerestapi",
+						"student",
+						"enroll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update student",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ic\" : \"930603-09-6528\",\r\n    \"name\" : \"{{$randomFirstName}}\",\r\n    \"address\" : \"{{$randomStreetAddress}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/samplerestapi/student/update",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"samplerestapi",
+						"student",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list student",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/samplerestapi/student/list?page=1&size=10",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"samplerestapi",
+						"student",
+						"list"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\" : 1,\r\n    \"firstName\" : \"{{$randomFirstName}}\",\r\n    \"lastName\" : \"{{$randomLastName}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/samplerestapi/user/add",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"samplerestapi",
+						"user",
+						"add"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
